@@ -3,7 +3,7 @@ import {app} from "./firebase"
 
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
 import { useState } from "react";
-
+import SignIn from "./Signin"
 
 // const db = getDatabase(app) //get db from app config and connect to real time db usign config url
 
@@ -22,13 +22,14 @@ const auth = getAuth(app);
 export default function App(){
   
 
- const [email,setEmail]= useState("")
- const [pass,setPass] = useState("")
 
+  const [email,setEmail]= useState("")
+  const [pass,setPass] = useState("")
  
 const emailLogin = async ()=>{
   const res = await createUserWithEmailAndPassword(auth,email,pass);
   console.log(res);
+  alert("logged in")
   setEmail("")
   setPass("")
   
@@ -37,11 +38,15 @@ const emailLogin = async ()=>{
   
   return(
     <div>
-
-    <label>email</label><input type="text" placeholder="email" required value={email} onChange={e=>setEmail(e.target.value)}/>
+      <label>email</label><input type="text" placeholder="email" required value={email} onChange={e=>setEmail(e.target.value)}/>
     <label>password</label><input type="text" placeholder="password" value={pass}  required onChange={e=>setPass(e.target.value)}/>
+    <button onClick={()=>emailLogin()}>PUT</button>
 
-      <button onClick={()=>emailLogin()}>PUT</button>
+    <br /><br /><br />
+
+     
+
+    <SignIn/>
       
     </div>
   )
